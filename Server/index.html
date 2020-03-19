@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <title>Arduino Server</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+</head>
+<body>
+    <button onclick="sendNyala()">Nyala</button>
+    <button onclick="sendMati()">Mati</button>
+</body>
+<script>
+    var socket = io.connect();
+
+    socket.on('connect', function (data) {
+        socket.emit('join', 'Browser connected');
+    });
+
+    socket.on("disconnect", () => {
+        console.log("Socket Disconnect");
+    })
+
+    function sendNyala() {
+        socket.emit("send","1");
+    }
+
+    function sendMati() {
+        socket.emit("send","0");
+    }
+
+</script>
+
+</html>
